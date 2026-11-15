@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { QRCodeSVG } from 'qrcode.react'
 import { Html5QrcodeScanner } from 'html5-qrcode'
 import { supabase } from './supabaseClient'
+import TableauDeBord from './TableauDeBord'
 
 const aujourdhui = () => new Date().toISOString().slice(0, 10)
 const carte = { border: '1px solid #ddd', borderRadius: 8, padding: 12, margin: '8px 0' }
@@ -290,6 +291,7 @@ export default function App() {
       {profil.role === 'gestionnaire' && (
         <p>
           Voir l'écran :{' '}
+          <button onClick={() => setVue('tableau')}>Tableau de bord</button>{' '}
           <button onClick={() => setVue('gestionnaire')}>Gestionnaire</button>{' '}
           <button onClick={() => setVue('cuisine')}>Cuisine</button>{' '}
           <button onClick={() => setVue('etudiant')}>Étudiant</button>
@@ -299,6 +301,7 @@ export default function App() {
       {vue === 'etudiant' && <Etudiant user={session.user} />}
       {vue === 'cuisine' && <Cuisine />}
       {vue === 'gestionnaire' && <Gestionnaire />}
+      {vue === 'tableau' && <TableauDeBord />}
     </div>
   )
 }
